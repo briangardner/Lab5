@@ -20,13 +20,13 @@ namespace Lab5
                 try
                 {
                     long factorial = CalculateFactorial(input);
-                    Console.WriteLine($"The factorial of {input} is {factorial}");
+                    Console.WriteLine($"The factorial of {input} is {factorial:N}");
                 }
                 catch (OverflowException ex)
                 {
                     Console.WriteLine($"A normal long couldn't handle that calculation. Here's the exception:\n{ex.Message}\n\nBreaking out the big guns. \n");
                     var factorial = CalculateBigFactorial(input);
-                    Console.WriteLine($"The factorial of {input} is {factorial}");
+                    Console.WriteLine($"The factorial of {input} is {factorial:N}");
                 }
                 
                 
@@ -57,27 +57,25 @@ namespace Lab5
 
         private static long CalculateFactorial(int input)
         {
-            long factorial = input;
-            for (int i = input - 1; i >= 1; --i)
+            if (input == 1)
             {
-                checked
-                {
-                    factorial *= i;
-                }
+                return input;
             }
-
-            return factorial;
+            checked
+            {
+                return input * CalculateFactorial(input-1);
+            }
         }
 
         private static BigInteger CalculateBigFactorial(int input)
         {
             var bigInt = new BigInteger(input);
-            for (int i = input - 1; i >= 1; --i)
+            if (input == 1)
             {
-                bigInt *= i;
+                return input;
             }
 
-            return bigInt;
+            return input * CalculateBigFactorial(input-1);
         }
 
         private static int GetFactorialToCalculate()
